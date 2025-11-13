@@ -29,13 +29,13 @@ const Stat = ({ value, label }) => (
   </div>
 );
 
-const Card = ({ tag, title }) => (
-  <div className="rounded-2xl overflow-hidden border border-zinc-100 bg-white shadow-sm">
-    <div className="aspect-video bg-gradient-to-br from-zinc-100 to-zinc-200 grid place-content-center text-sm text-zinc-600">
-      Image / Product
+const Card = ({ tag, title, image }) => (
+  <div className="rounded-2xl overflow-hidden border border-zinc-100 bg-white shadow-sm hover:shadow-md transition">
+    <div className="aspect-video overflow-hidden">
+      <img src={image} alt={title} className="object-cover w-full h-full" />
     </div>
     <div className="p-4">
-      <div className="text-xs uppercase tracking-wider text-zinc-500">{tag}</div>
+      <div className="text-xs uppercase tracking-wide text-green-600">{tag}</div>
       <div className="font-semibold mt-1">{title}</div>
     </div>
   </div>
@@ -48,8 +48,12 @@ export default function App() {
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-zinc-100">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src="/logo.jpeg" alt="Anumit Enterprises" className="h-7 w-7" />
-            <div className="font-bold text-lg sm:text-xl text-green-700">Anumit Enterprises</div>
+            <img
+              src={`${import.meta.env.BASE_URL}logo.jpeg`}
+              alt="Anumit Enterprises"
+              className="h-10 w-auto object-contain"
+            />
+            <div className="font-bold text-lg sm:text-xl text-green-700"></div>
           </div>
           <nav className="hidden md:flex items-center gap-6 text-sm">
             <a href="#about" className="hover:text-green-600">About</a>
@@ -92,8 +96,15 @@ export default function App() {
             </div>
           </div>
           <div className="relative">
-            <div className="aspect-square rounded-3xl bg-gradient-to-br from-green-100 to-green-50"></div>
+          {/* Gradient background */}
+          <div className="aspect-square rounded-3xl bg-gradient-to-br from-green-100 to-green-50 overflow-hidden flex items-center justify-center">
+            <img
+              src={`${import.meta.env.BASE_URL}imagebase.png`}
+              alt="Anumit Enterprises Base"
+              className="object-contain h-full w-full"
+            />
           </div>
+        </div>
         </div>
       </section>
 
@@ -109,9 +120,15 @@ export default function App() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {CATEGORIES.map(cat => (
-              <Card key={cat.tag} tag={cat.tag} title={cat.items[0]} />
+              <Card
+                key={cat.tag}
+                tag={cat.tag}
+                title={cat.items[0]}
+                image={cat.image}
+              />
             ))}
           </div>
+
 
           {/* Simple grouped list below cards */}
           <div className="mt-10 grid md:grid-cols-2 gap-8">
